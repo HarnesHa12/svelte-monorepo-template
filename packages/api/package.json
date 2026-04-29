@@ -1,0 +1,23 @@
+{
+  "name": "@acme/api",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./server": "./src/index.ts",
+    "./client": "./src/client.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@acme/auth": "workspace:*",
+    "@acme/db": "workspace:*",
+    "@acme/env": "workspace:*",
+    "@elysia/eden": "^1.4.10",
+    "elysia": "^1.4.28"
+  },
+  "devDependencies": {
+    "@acme/tsconfig": "workspace:*",
+    "typescript": "^6.0.3"
+  }
+}

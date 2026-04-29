@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    networks:
+      - acme
+    volumes:
+      - type: tmpfs
+        target: /dev/shm
+        tmpfs:
+          size: 134217728
+      - pg_data:/var/lib/postgresql
+    environment:
+      - POSTGRES_DB=acme
+      - POSTGRES_USER=acme
+      - POSTGRES_PASSWORD=acme
+  cache:
+    image: redis:latest
+    restart: unless-stopped
+    networks:
+      - acme
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - '3000:3000'
+    networks:
+      - acme
+    depends_on:
+      - db
+      - cache
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://acme:acme@db:5432/acme
+      - REDIS_URL=redis://cache:6379
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
+
+volumes:
+  pg_data:
+  redis_data:
+
+networks:
+  acme:
+    driver: bridge

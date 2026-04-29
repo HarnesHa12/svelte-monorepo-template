@@ -1,0 +1,1 @@
+My personal monorepo template for web projects, inspired by [create-t3-turbo](https://github.com/t3-oss/create-t3-turbo), but with a different stack.

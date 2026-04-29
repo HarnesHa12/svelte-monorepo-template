@@ -1,0 +1,22 @@
+{
+  "name": "@acme/auth",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./server": "./src/server.ts",
+    "./client": "./src/client.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "auth:generate": "bun x auth generate --config src/server.ts --output ../db/prisma/schema.prisma"
+  },
+  "dependencies": {
+    "@acme/db": "workspace:*",
+    "@acme/env": "workspace:*",
+    "better-auth": "^1.6.6"
+  },
+  "devDependencies": {
+    "@acme/tsconfig": "workspace:*",
+    "typescript": "^6.0.3"
+  }
+}

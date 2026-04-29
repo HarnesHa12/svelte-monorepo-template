@@ -1,0 +1,48 @@
+name: 'Lint, Format and Typecheck'
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+concurrency: 
+    group: lint-format-typecheck-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Github Checkout
+              uses: actions/checkout@v6
+
+            - name: Setup Bun and Prisma Client
+              uses: ./tools/actions/setup
+
+            - name: Run Biome Lint
+              run: bun run lint
+
+    format:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Github Checkout
+              uses: actions/checkout@v6
+
+            - name: Setup Bun and Prisma Client
+              uses: ./tools/actions/setup
+
+            - name: Run Biome Format
+              run: bun run format
+
+    typecheck:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Github Checkout
+              uses: actions/checkout@v6
+
+            - name: Setup Bun and Prisma Client
+              uses: ./tools/actions/setup
+
+            - name: Run Biome Typecheck
+              run: bun run typecheck

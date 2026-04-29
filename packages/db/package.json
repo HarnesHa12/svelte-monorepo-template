@@ -1,0 +1,29 @@
+{
+  "name": "@acme/db",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:studio": "prisma studio",
+    "db:push": "prisma db push",
+    "format:prisma": "prisma format",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@acme/env": "workspace:*",
+    "@prisma/adapter-pg": "^7.7.0",
+    "@prisma/client": "^7.7.0",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "@acme/tsconfig": "workspace:*",
+    "@types/pg": "^8.20.0",
+    "prisma": "^7.7.0",
+    "typescript": "^6.0.3"
+  }
+}
