@@ -44,5 +44,5 @@ jobs:
             - name: Setup Bun and Prisma Client
               uses: ./tools/actions/setup
 
-            - name: Run Biome Typecheck
+            - name: Run Typecheck
               run: bun run typecheck
