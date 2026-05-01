@@ -2,8 +2,6 @@ services:
   db:
     image: postgres:latest
     restart: unless-stopped
-    ports:
-      - '5432:5432'
     networks:
       - acme
     volumes:
@@ -21,8 +19,6 @@ services:
     restart: unless-stopped
     networks:
       - acme
-    ports:
-      - '6379:6379'
     volumes:
       - redis_data:/data
   web:
