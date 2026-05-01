@@ -19,7 +19,7 @@ const authHandle: Handle = async ({ event, resolve }) => {
     return svelteKitHandler({ event, resolve, auth, building });
 };
 
-const apiHandle: Handle = async ({ event, resolve }) => {
+const apiHandle: Handle = ({ event, resolve }) => {
     if (event.url.pathname.startsWith('/api/v1')) {
         return fetchRequestHandler({
             endpoint: '/api/v1',
