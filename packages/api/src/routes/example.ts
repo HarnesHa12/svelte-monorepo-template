@@ -1,11 +1,15 @@
-import Elysia from 'elysia';
-import { auth } from '../middlewares/auth';
-import type { Locals } from '../types/locals';
+import type { TRPCRouterRecord } from '@trpc/server';
+import { protectedProcedure, publicProcedure } from '../trpc';
 
-export function example(locals: Locals) {
-    return new Elysia().use(auth(locals)).get('/example', () => {
+export const exampleRoute = {
+    hello: publicProcedure.query(() => {
         return {
-            message: 'example',
+            message: 'hi',
         };
-    });
-}
+    }),
+    helloProtected: protectedProcedure.query(({ ctx }) => {
+        return {
+            message: `hi ${ctx.user?.name}`,
+        };
+    }),
+} satisfies TRPCRouterRecord;

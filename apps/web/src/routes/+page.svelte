@@ -5,8 +5,8 @@ import { onMount } from 'svelte';
 let example = $state<string>('');
 
 onMount(async () => {
-    const res = await api.example.get();
-    example = res.data?.message ?? 'No message';
+    const res = await api.hello.query();
+    example = res.message ?? 'No message';
 });
 </script>
 

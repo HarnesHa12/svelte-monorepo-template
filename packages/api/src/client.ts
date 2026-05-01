@@ -1,5 +1,12 @@
-import { treaty } from '@elysia/eden';
-import type { API } from '.';
+import { createTRPCClient, httpBatchLink } from '@trpc/client';
+import superjson from 'superjson';
+import type { AppRouter } from './router';
 
-// todo: maybe I should create a separate env variable?
-export const api = treaty<API>('http://127.0.0.1:5173').api.v1;
+export const api = createTRPCClient<AppRouter>({
+    links: [
+        httpBatchLink({
+            url: 'http://127.0.0.1:5173/api/v1',
+            transformer: superjson,
+        }),
+    ],
+});
