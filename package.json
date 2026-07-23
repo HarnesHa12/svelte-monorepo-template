@@ -1,7 +1,7 @@
 {
   "name": "svelte-monorepo-template",
   "private": true,
-  "packageManager": "pnpm@11.15.0",
+  "packageManager": "pnpm@11.17.0",
   "scripts": {
     "build": "SKIP_ENV_VALIDATION=1 turbo run build",
     "dev": "dotenv -- turbo run dev",
