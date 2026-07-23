@@ -13,8 +13,7 @@
     "noEmit": true,
     "rootDir": "src",
     "outDir": "dist",
-    "lib": ["ESNext", "DOM"],
-    "types": ["bun"]
+    "lib": ["ESNext", "DOM"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

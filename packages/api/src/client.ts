@@ -5,7 +5,8 @@ import type { AppRouter } from './router';
 export const api = createTRPCClient<AppRouter>({
     links: [
         httpBatchLink({
-            url: 'http://127.0.0.1:5173/api/v1',
+            // todo: fix
+            url: 'http://localhost:5173/api/v1',
             transformer: superjson,
         }),
     ],

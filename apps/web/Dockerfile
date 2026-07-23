@@ -1,29 +1,53 @@
-FROM oven/bun:latest AS base
+FROM node:lts-alpine AS base
 
 FROM base AS builder
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+
+RUN corepack enable
+
+RUN apk update
+RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
 
-RUN bun add --global turbo
+RUN pnpm add --global turbo
 COPY . .
 RUN turbo prune @acme/web --docker
 
 FROM base AS installer
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+
+RUN corepack enable
+
+RUN apk update
+RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
 
 COPY --from=builder /app/out/json/ .
 
-RUN bun install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 COPY --from=builder /app/out/full/ .
 COPY --from=builder /app/scripts ./scripts
 
-ENV SKIP_ENV_VALIDATION=1
+ENV SKIP_ENV_VALIDATION=true
 
-RUN bun turbo build --filter=@acme/web
+RUN pnpm run db:generate
+RUN pnpm turbo build --filter=@acme/web
 
 FROM base AS runner
+
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+
+RUN corepack enable
+
+RUN apk --no-cache add curl
 
 WORKDIR /app
 

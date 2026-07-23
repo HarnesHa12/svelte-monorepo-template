@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
 
-bun run db:deploy
+pnpm run db:deploy
 
-exec bun apps/web/build/index.js
+exec node apps/web/build
